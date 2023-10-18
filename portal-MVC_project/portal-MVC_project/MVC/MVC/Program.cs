@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using DotNetCoreSqlDb.Data;
 using MVC.Data;
 using MVC.Interface;
 using MVC.Repository;
@@ -9,8 +11,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<MVC_Context>(options =>
 
-options.UseSqlServer(builder.Configuration.GetConnectionString("Default"))
+options.UseSqlServer(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING"))
 );
+builder.Services.AddStackExchangedRedisCache(options =>
+{
+    options.Configuration = builder.Configuration["AZURE_REDIS_CONNECTIONSTRING"];
+    options.InstanceName = "SampleInstance";
+});
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IMaterialRepository, MaterialRepository>();
 builder.Services.AddScoped<ISkillRepository, SkillRepository>();
