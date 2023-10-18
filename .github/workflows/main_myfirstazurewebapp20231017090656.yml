@@ -32,7 +32,7 @@ jobs:
         run: dotnet tool install -g dotnet -ef
 
       - name: dotnet bundle migration
-        run: dotnet ef migration bundle --runtime linux-x64 -p Portal/MVC.csproj -o \${{env.DOTNET_ROOT}}/myapp/migrate
+        run: dotnet ef migration bundle --runtime linux-x64 -p Portal/portal-MVC_project/MVC/MVC.csproj -o \${{env.DOTNET_ROOT}}/myapp/migrate
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
