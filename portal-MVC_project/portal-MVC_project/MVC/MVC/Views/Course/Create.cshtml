@@ -1,0 +1,25 @@
+﻿@model Course
+@inject MVC.Data.MVC_Context context
+@inject MVC.Interface.ICourseRepository course
+@inject MVC.Interface.ISkillRepository skill
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h1>Add Course</h1>
+
+<form method="post" asp-action="Add">
+
+    <label for="name">Name:</label><br>
+    <input type="text" asp-for="Name" /><br><br>
+    <label for="name">Description:</label><br>
+    <input type="text" asp-for="Description" /><br><br>
+
+
+    <button type="submit">
+        Add
+    </button>
+</form>

@@ -1,0 +1,51 @@
+﻿@model User
+@inject MVC.Interface.ICourseRepository course
+@inject MVC.Interface.IUserRepository user
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+<div>
+    <table class="table table-hover" style=" width:100%">
+        <tr>
+            <th><d><p1>#</p1></d></th>
+            <th><d><p1>Name</p1></d></th>
+            <th><d><p1>Description</p1></d></th>
+            <th><d><p1>Progress in percentage</p1></d></th>
+            <th><d><p1>Courses skillCount</p1></d></th>
+            <th><d><p1>Courses materialcount</p1></d></th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in course.GetAllList())
+            {
+            <tr>
+                @if (@item.Name != null && @item.Description != null)
+                {
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.Description</td>
+                    <td>@item.ProgressInPercentage</td>
+                    <td>@course.GetCoursesSkills(item.Id).Count</td>
+                    <td>@course.GetCoursesMaterials(item.Id).Count</td>
+
+                    <td>
+                        <a asp-controller="Course" asp-action="Detail" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Detail</a>
+                    </td>
+                    <td>
+                        <a asp-controller="Home" asp-action="AddCourseToUser" asp-route-id="@item.Id" asp-route-userId="@user.LoggedinUser().Id" class="btn btn-sm btn-outline-secondary">Add</a>
+                    </td>
+                }
+            </tr>
+            }
+    </table>
+    <div class="center">
+        <form method="post" asp-action="Create" asp-route-type="OnlineArticle">
+            <button class="button"><p style="color: blue"><u>+Add OnlineArticles</u></p></button>
+        </form>
+    </div>
+</div>
